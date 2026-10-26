@@ -218,7 +218,7 @@ static int rz_debug_native_reg_read(RzDebug *dbg, int type, ut8 *buf, int size) 
 			long ret = rz_debug_ptrace(dbg, PTRACE_PEEKUSER, pid,
 				(void *)rz_offsetof(struct user, u_debugreg[i]), 0);
 			if ((i + 1) * sizeof(ret) > size) {
-		  
+
 				RZ_LOG_ERROR("linux_reg_get: Buffer too small %d\n", size);
 				break;
 			}
@@ -338,13 +338,13 @@ static int rz_debug_native_reg_write(RzDebug *dbg, int type, const ut8 *buf, int
 			}
 			if (rz_debug_ptrace(dbg, PTRACE_POKEUSER, pid,
 				    (void *)rz_offsetof(struct user, u_debugreg[i]), (rz_ptrace_data_t)val[i])) {
-				ret = false;    
+				ret = false;
 				rz_sys_perror("ptrace POKEUSER");
 			}
 		}
 		if (ret == false) {
-                        return false;
-                }
+			return false;
+		}
 		return sizeof(RZ_DEBUG_REG_T);
 	}
 	case RZ_REG_TYPE_GPR: {
